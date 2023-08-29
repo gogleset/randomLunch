@@ -1,0 +1,4 @@
+/* 테일윈드 추가 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
