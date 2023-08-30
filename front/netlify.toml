@@ -1,5 +1,6 @@
 [[redirects]]
-from = "/proxy/*"
+from = "/dapi.kakao/*"
   to = "https://dapi.kakao.com/:splat"  
   status = 200
   force = true
+
