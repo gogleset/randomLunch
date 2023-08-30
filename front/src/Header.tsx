@@ -2,8 +2,6 @@
  * @gogleset Header를 담당할 컴포넌트입니다.
  */
 
-import React from "react";
-
 /**
  * @gogleset Header 컴포넌트입니다.
  */
@@ -15,7 +13,7 @@ const Header = () => {
         <a className='btn btn-ghost normal-case text-xl'>점메츄</a>
       </div>
       <div className='flex-none '>
-        <ul className='menu menu-horizontal px-1 dark:text-white '>
+        {/* <ul className='menu menu-horizontal px-1 dark:text-white '>
           <li>
             <a className='dark:hover:bg-slate-400'>지역 추가</a>
           </li>
@@ -36,7 +34,7 @@ const Header = () => {
               </ul>
             </details>
           </li>
-        </ul>
+        </ul> */}
       </div>
     </div>
   );

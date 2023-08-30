@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+/**
+ * @gogleset 랜덤이 실행될 컴포넌트
+ */
 
+import React, { useState } from "react";
+import { useAtom } from "jotai";
+// FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+// util
 import { getRandomNumber } from "../util/random";
 import { fetchRecommendedData } from "../util/fetch";
+// components
 import ResultCard from "./ResultCard";
+// 전역 state
+import { loadAddressAtom, currentLocationAtom } from "../store/LocationAtom";
 
 // 서버에서 받아온 데이터 타입
 export type PlaceData = {
@@ -27,7 +36,11 @@ const Content = () => {
   const category = ["한식", "중식", "일식", "양식", "랜덤"];
   // 셀렉트한 메뉴의 index 번호입니다.
   const [selectedMenu, setSelectedMenu] = useState(0);
+  // 랜덤한 데이터(서버데이터)
   const [randomData, setRandomData] = useState<null | PlaceData>(null);
+  // 전역으로 관리되는 주소값
+  const [loadAddress] = useAtom(loadAddressAtom);
+  const [currentLocation] = useAtom(currentLocationAtom);
 
   // 서버에서 가져온 값을 state에 저장
   async function getRecommendedData(selectCategory: string) {
@@ -38,8 +51,14 @@ const Content = () => {
         : selectCategory;
     console.log("getRandommendedData!", select);
     try {
-      // 서버 통신 response
-      const response = await fetchRecommendedData(select);
+      if (currentLocation === null)
+        throw new Error("current loction not found");
+      //랜덤 음식 서버 통신 response
+      const response = await fetchRecommendedData(
+        select,
+        Number(currentLocation?.x),
+        Number(currentLocation?.y)
+      );
       // Json화
       const responseJson = await response.json();
       // Json에서 또 랜덤데이터 돌리기
@@ -70,15 +89,18 @@ const Content = () => {
     // 어떤 index값을 select했는지 추출해서 state에 저장
     setSelectedMenu(Number(event.target.value));
   }
+  console.log(currentLocation);
   return (
-    <div className='h-screen bg-slate-400 w-1/2 max-md:w-screen flex flex-col items-center '>
+    <div className='h-screen w-1/2 max-md:w-screen flex flex-col items-center  '>
       <div className='flex justify-center items-center my-4'>
         <FontAwesomeIcon icon={faLocationDot} beat color='black' />
-        <h1 className='ml-2 text-black font-bold text-xl'>금토동</h1>
+        <h1 className='ml-2 text-black font-bold text-xl dark:text-white'>
+          {loadAddress?.bname}
+        </h1>
       </div>
       <div className='flex w-80 justify-center items-center my-4'>
         <select
-          className='select w-full max-w-xs mr-2'
+          className='select w-full max-w-xs mr-2 dark:text-white'
           name=''
           id='food'
           onChange={onSelectChangeHandler}
@@ -92,7 +114,7 @@ const Content = () => {
           })}
         </select>
         <button
-          className='btn btn-primary btn-xl'
+          className='btn btn-primary btn-xl '
           onClick={onClickHandler}
           disabled={randomData !== null}>
           돌리기!

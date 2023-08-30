@@ -15,7 +15,7 @@ const ResultCard: React.FC<{ data: PlaceData }> = ({ data }) => {
   }
   return (
     <div className='card w-80 bg-base-100 shadow-xl'>
-      <div className='card-body'>
+      <div className='card-body dark:text-white'>
         <h2 className='card-title'>{data.place_name}</h2>
         <p>{data.category_name}</p>
         <p>{data.phone}</p>

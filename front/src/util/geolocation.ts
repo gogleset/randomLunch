@@ -14,18 +14,19 @@ function getCurrentLocation(): Promise<GeolocationCoordinates> {
         }
       );
     } else {
-      reject(new Error("Geolocation is not available"));
+      reject(new Error("현재 위치를 알 수 없어요"));
     }
   });
 }
+export { getCurrentLocation };
 
 // 함수 호출 및 사용 예시
-getCurrentLocation()
-  .then((coordinates: GeolocationCoordinates) => {
-    const { latitude: x, longitude: y } = coordinates;
-    console.log("x:", x);
-    console.log("y:", y);
-  })
-  .catch((error) => {
-    console.error("Error getting current location:", error);
-  });
+// getCurrentLocation()
+//   .then((coordinates: GeolocationCoordinates) => {
+//     const { latitude: x, longitude: y } = coordinates;
+//     console.log("x:", x);
+//     console.log("y:", y);
+//   })
+//   .catch((error) => {
+//     console.error("Error getting current location:", error);
+//   });
