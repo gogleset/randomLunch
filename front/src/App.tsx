@@ -1,7 +1,7 @@
 /**
  * @gogleset App.tsx
  */
-import Content from "./Content";
+import Home from "./Home";
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -9,7 +9,7 @@ function App() {
   return (
     <div className='flex flex-col items-center'>
       <Header />
-      <Content />
+      <Home />
       <Footer />
     </div>
   );
