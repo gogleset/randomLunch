@@ -1,11 +1,11 @@
 /**
  * @gogleset GeoLocation API를 이용한 위치 추출 및 모달 컴포넌트
  */
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getCurrentLocation } from "../../util/geolocation";
 
 const CurrentGeolocationModal = ({ trigger }: { trigger: boolean }) => {
-  const [location, setLocation] = useState<GeolocationCoordinates | null>(null);
+  // const [location, setLocation] = useState<GeolocationCoordinates | null>(null);
   // 현재 위치 가져올 시 로딩 state
   useEffect(() => {
     // trigger === true

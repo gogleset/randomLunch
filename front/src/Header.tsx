@@ -2,8 +2,6 @@
  * @gogleset Header를 담당할 컴포넌트입니다.
  */
 
-import React from "react";
-
 /**
  * @gogleset Header 컴포넌트입니다.
  */

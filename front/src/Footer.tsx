@@ -1,7 +1,6 @@
 /**
  * @gogleset Footer 컴포넌트입니다.
  */
-import React from "react";
 
 const Footer = () => {
   return (

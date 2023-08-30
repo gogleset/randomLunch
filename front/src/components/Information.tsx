@@ -1,7 +1,7 @@
 /**
  * @gogleset 사용자가 처음 입장 시 localstorage에 현재 위치값이 없을때 나타나는 컴포넌트
  */
-import React from "react";
+
 import { useState, useEffect } from "react";
 import { useAtom } from "jotai";
 import { loadAddressAtom } from "../store/LocationAtom";
@@ -10,18 +10,18 @@ import KakaoModal from "./modal/KakaoAddressModal";
 import CurrentGeolocationModal from "./modal/CurrentGeolocationModal";
 const Information = () => {
   // 현재 Location을 가져올 수 있는지 트리거할 수 있는지 판별하는 trigger state
-  const [currentLocationTrigger, setCurrentLocatioTrigger] = useState(false);
+  const [currentLocationTrigger] = useState(false);
   const [isGetData, setIsGetData] = useState(false);
 
   // 현재 도로명주소
-  const [loadAddress, setLoadAddress] = useAtom(loadAddressAtom);
+  const [loadAddress] = useAtom(loadAddressAtom);
 
   // 현재 위치를 받아올 때 쓸 수 있는 함수
-  function currentLocationClickHandler(event: React.MouseEvent) {
-    event.preventDefault();
-    setCurrentLocatioTrigger(true);
-    window.currentModal.showModal();
-  }
+  // function currentLocationClickHandler(event: React.MouseEvent) {
+  //   event.preventDefault();
+  //   setCurrentLocatioTrigger(true);
+  //   window.currentModal.showModal();
+  // }
 
   useEffect(() => {
     if (loadAddress) {

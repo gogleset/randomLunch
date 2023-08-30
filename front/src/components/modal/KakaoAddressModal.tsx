@@ -11,7 +11,7 @@ import { getXY } from "../../util/fetch";
 const KakaoModal = () => {
   const [loadAddress, setLoadAddressAtom] = useAtom(loadAddressAtom);
   const [, setXyAtom] = useAtom(currentLocationAtom);
-  const selectAddress = async (data) => {
+  const selectAddress = async (data: any) => {
     if (!data) throw new Error("Address Not Found");
     try {
       // 도로명주소 -> xy좌표로 바꿈
