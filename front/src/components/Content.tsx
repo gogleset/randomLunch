@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { getRandomNumber } from "./util/random";
-import { fetchRecommendedData } from "./util/fetch";
-import ResultCard from "./components/ResultCard";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { getRandomNumber } from "../util/random";
+import { fetchRecommendedData } from "../util/fetch";
+import ResultCard from "./ResultCard";
+
 // 서버에서 받아온 데이터 타입
 export type PlaceData = {
   address_name: string;
@@ -17,6 +21,7 @@ export type PlaceData = {
   x: string;
   y: string;
 };
+
 const Content = () => {
   // 메뉴의 카테고리입니다.(대분류)
   const category = ["한식", "중식", "일식", "양식", "랜덤"];
@@ -65,36 +70,36 @@ const Content = () => {
     // 어떤 index값을 select했는지 추출해서 state에 저장
     setSelectedMenu(Number(event.target.value));
   }
-
   return (
-    <main className='w-full flex justify-center'>
-      {/* 랜덤 데이터가 없다면 */}
-      {randomData === null && (
-        <div className='h-screen bg-slate-400 w-1/2 max-sm:w-screen flex flex-col items-center '>
-          <select
-            name=''
-            id='food'
-            onChange={onSelectChangeHandler}
-            defaultValue={"0"}>
-            {category.map((item, index) => {
-              return (
-                <option value={index} key={index}>
-                  {item}
-                </option>
-              );
-            })}
-          </select>
-          <button
-            className='btn'
-            onClick={onClickHandler}
-            disabled={randomData !== null}>
-            돌리기!
-          </button>
-        </div>
-      )}
-      {/* 랜덤데이터가 있다면 */}
+    <div className='h-screen bg-slate-400 w-1/2 max-md:w-screen flex flex-col items-center '>
+      <div className='flex justify-center items-center my-4'>
+        <FontAwesomeIcon icon={faLocationDot} beat color='black' />
+        <h1 className='ml-2 text-black font-bold text-xl'>금토동</h1>
+      </div>
+      <div className='flex w-80 justify-center items-center my-4'>
+        <select
+          className='select w-full max-w-xs mr-2'
+          name=''
+          id='food'
+          onChange={onSelectChangeHandler}
+          defaultValue={"0"}>
+          {category.map((item, index) => {
+            return (
+              <option value={index} key={index}>
+                {item}
+              </option>
+            );
+          })}
+        </select>
+        <button
+          className='btn btn-primary btn-xl'
+          onClick={onClickHandler}
+          disabled={randomData !== null}>
+          돌리기!
+        </button>
+      </div>
       {randomData !== null && <ResultCard data={randomData} />}
-    </main>
+    </div>
   );
 };
 
