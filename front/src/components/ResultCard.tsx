@@ -1,6 +1,10 @@
-import { PlaceData } from "../App";
+/**
+ * @gogleset 보여질 카드 섹션입니다.
+ */
 
-const Presentation: React.FC<{ data: PlaceData }> = ({ data }) => {
+import type { PlaceData } from "../Content";
+
+const ResultCard: React.FC<{ data: PlaceData }> = ({ data }) => {
   console.log(data);
 
   if (!data) return <>돌려돌려</>;
@@ -26,4 +30,4 @@ const Presentation: React.FC<{ data: PlaceData }> = ({ data }) => {
   );
 };
 
-export default Presentation;
+export default ResultCard;
