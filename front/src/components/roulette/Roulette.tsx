@@ -11,8 +11,10 @@ const data = [
 
 const Roulette = ({
   callback,
+  setDisabled, // 버튼 disable에 쓸 props
 }: {
   callback: (data: string) => Promise<void>;
+  setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
@@ -24,6 +26,8 @@ const Roulette = ({
       const newPrizeNumber = Math.floor(Math.random() * data.length);
       setPrizeNumber(newPrizeNumber);
       setMustSpin(true);
+      // 부모 버튼 disable
+      setDisabled(true);
       const time = setTimeout(async () => {
         console.log("Prize number");
         await callback(data[newPrizeNumber].option);
@@ -45,7 +49,7 @@ const Roulette = ({
         spinDuration={0.5}
       />
       <button
-        className='btn btn-accent mt-2'
+        className='btn btn-accent mt-2 mb-10'
         onClick={handleSpinClick}
         disabled={mustSpin}>
         SPIN
