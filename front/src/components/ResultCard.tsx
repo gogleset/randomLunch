@@ -14,7 +14,7 @@ const ResultCard: React.FC<{ data: PlaceData }> = ({ data }) => {
     window.open(data.place_url);
   }
   return (
-    <div className='card w-80 bg-base-100 shadow-xl mb-10'>
+    <div className='card w-80 bg-base-100 shadow-xl my-5'>
       <div className='card-body dark:text-white'>
         <h2 className='card-title'>{data.place_name}</h2>
         <p>{data.category_name}</p>
