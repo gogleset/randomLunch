@@ -4,6 +4,7 @@
 
 import React, { useState } from "react";
 import { useAtom } from "jotai";
+import { RESET } from "jotai/utils";
 // FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
@@ -39,8 +40,8 @@ const Content = () => {
   // 랜덤한 데이터(서버데이터)
   const [randomData, setRandomData] = useState<null | PlaceData>(null);
   // 전역으로 관리되는 주소값
-  const [loadAddress] = useAtom(loadAddressAtom);
-  const [currentLocation] = useAtom(currentLocationAtom);
+  const [loadAddress, setLoadAddress] = useAtom(loadAddressAtom);
+  const [currentLocation, setCurrentLocation] = useAtom(currentLocationAtom);
 
   // 서버에서 가져온 값을 state에 저장
   async function getRecommendedData(selectCategory: string) {
@@ -74,6 +75,13 @@ const Content = () => {
       throw new Error(`${error}`);
     }
   }
+  // 초기화 버튼 클릭시 실행될 함수
+  function initializationBtnClickHandler(event: React.MouseEvent) {
+    event.preventDefault();
+    // localStorage Item 리셋
+    setLoadAddress(RESET);
+    setCurrentLocation(RESET);
+  }
   // 버튼 클릭시 실행될 함수
   function onClickHandler(event: React.MouseEvent) {
     event.preventDefault();
@@ -98,9 +106,15 @@ const Content = () => {
           {loadAddress?.bname}
         </h1>
       </div>
+      <button
+        className='btn btn-neutral btn-xl '
+        onClick={initializationBtnClickHandler}
+        disabled={randomData !== null}>
+        위치 초기화하기
+      </button>
       <div className='flex w-80 justify-center items-center my-4'>
         <select
-          className='select w-full max-w-xs mr-2 dark:text-white'
+          className='select select-bordered w-full max-w-xs mr-2 dark:text-white border-solid'
           name=''
           id='food'
           onChange={onSelectChangeHandler}
