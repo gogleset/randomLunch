@@ -13,6 +13,7 @@ import { getRandomNumber } from "../util/random";
 import { fetchRecommendedData } from "../util/fetch";
 // components
 import ResultCard from "./ResultCard";
+import Roulette from "./roulette/Roulette";
 // 전역 state
 import { loadAddressAtom, currentLocationAtom } from "../store/LocationAtom";
 
@@ -39,6 +40,8 @@ const Content = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
   // 랜덤한 데이터(서버데이터)
   const [randomData, setRandomData] = useState<null | PlaceData>(null);
+  // 룰렛을 보여줄지 말지
+  const [isShowRoulette, setIsShowRoulette] = useState(false);
   // 전역으로 관리되는 주소값
   const [loadAddress, setLoadAddress] = useAtom(loadAddressAtom);
   const [currentLocation, setCurrentLocation] = useAtom(currentLocationAtom);
@@ -82,6 +85,11 @@ const Content = () => {
     setLoadAddress(RESET);
     setCurrentLocation(RESET);
   }
+  // 룰렛돌리기 버튼 클릭시 실행될 함수
+  function showRouletteBtnClickHandler(event: React.MouseEvent) {
+    event.preventDefault();
+    setIsShowRoulette(!isShowRoulette);
+  }
   // 버튼 클릭시 실행될 함수
   function onClickHandler(event: React.MouseEvent) {
     event.preventDefault();
@@ -99,7 +107,7 @@ const Content = () => {
   }
   console.log(currentLocation);
   return (
-    <div className='h-screen w-1/2 max-md:w-screen flex flex-col items-center  '>
+    <div className='min-h-screen w-1/2 max-md:w-screen flex flex-col items-center  '>
       <div className='flex justify-center items-center my-4'>
         <FontAwesomeIcon icon={faLocationDot} beat color='black' />
         <h1 className='ml-2 text-black font-bold text-xl dark:text-white'>
@@ -134,6 +142,15 @@ const Content = () => {
           돌리기!
         </button>
       </div>
+      <div>
+        <button
+          className='btn btn-primary btn-xl '
+          onClick={showRouletteBtnClickHandler}
+          disabled={randomData !== null}>
+          룰렛 돌리기!
+        </button>
+      </div>
+      {isShowRoulette && <Roulette callback={getRecommendedData} />}
       {randomData !== null && <ResultCard data={randomData} />}
     </div>
   );

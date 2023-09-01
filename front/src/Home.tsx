@@ -13,8 +13,8 @@ const Home = () => {
   const [currentLocation] = useAtom(currentLocationAtom);
   console.log(loadAddress);
   return (
-    <main className='w-full flex justify-center'>
-      <div className='h-screen dark:bg-gray-700 w-1/2 max-md:w-screen flex flex-col justify-center items-center text-black'>
+    <main className='w-full flex justify-center h-full'>
+      <div className='min-h-screen dark:bg-gray-700 w-1/2 max-md:w-screen flex flex-col justify-center items-center text-black'>
         {/* 로컬스토리지에 위치 값이 있다면 */}
         {loadAddress || currentLocation ? <Content /> : <Information />}
         {/* 로컬스토리지에 위치 값이 없다면 */}
