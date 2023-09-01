@@ -42,6 +42,8 @@ const Content = () => {
   const [randomData, setRandomData] = useState<null | PlaceData>(null);
   // 룰렛을 보여줄지 말지
   const [isShowRoulette, setIsShowRoulette] = useState(false);
+  // 버튼을 눌렀는지 안눌렀는지
+  const [isBtnClick, setIsBtnClick] = useState(false);
   // 전역으로 관리되는 주소값
   const [loadAddress, setLoadAddress] = useAtom(loadAddressAtom);
   const [currentLocation, setCurrentLocation] = useAtom(currentLocationAtom);
@@ -96,6 +98,7 @@ const Content = () => {
     // 현재 선택하고 있는 category
     const selectCategory = category[selectedMenu];
     // server 통신 & state 설정
+    setIsBtnClick(true);
     getRecommendedData(selectCategory);
   }
 
@@ -117,7 +120,7 @@ const Content = () => {
       <button
         className='btn btn-neutral btn-xl '
         onClick={initializationBtnClickHandler}
-        disabled={randomData !== null}>
+        disabled={isBtnClick}>
         위치 초기화하기
       </button>
       <div className='flex w-80 justify-center items-center my-4'>
@@ -138,7 +141,7 @@ const Content = () => {
         <button
           className='btn btn-primary btn-xl '
           onClick={onClickHandler}
-          disabled={randomData !== null}>
+          disabled={isBtnClick}>
           돌리기!
         </button>
       </div>
@@ -146,11 +149,13 @@ const Content = () => {
         <button
           className='btn btn-primary btn-xl '
           onClick={showRouletteBtnClickHandler}
-          disabled={randomData !== null}>
+          disabled={isBtnClick}>
           룰렛 돌리기!
         </button>
       </div>
-      {isShowRoulette && <Roulette callback={getRecommendedData} />}
+      {isShowRoulette && (
+        <Roulette callback={getRecommendedData} setDisabled={setIsBtnClick} />
+      )}
       {randomData !== null && <ResultCard data={randomData} />}
     </div>
   );
