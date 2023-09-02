@@ -2,7 +2,7 @@
  * @gogleset 위치값 검사하는 component
  */
 import { useAtom } from 'jotai';
-import { loadAddressAtom, currentLocationAtom } from './store/LocationAtom';
+import { loadAddressAtom } from './store/LocationAtom';
 import Information from './components/Information';
 import Content from './components/Content';
 
@@ -10,8 +10,7 @@ import Content from './components/Content';
 // import Content from "./components/Content";
 const Home = () => {
   const [loadAddress] = useAtom(loadAddressAtom);
-  const [currentLocation] = useAtom(currentLocationAtom);
-  console.log(loadAddress);
+
   return (
     <main className='w-full flex justify-center h-full'>
       <div className='min-h-screen dark:bg-gray-700 w-1/2 max-md:w-screen flex flex-col justify-center items-center text-black'>
