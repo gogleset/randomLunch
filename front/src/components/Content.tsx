@@ -2,20 +2,20 @@
  * @gogleset 랜덤이 실행될 컴포넌트
  */
 
-import React, { useState } from "react";
-import { useAtom } from "jotai";
-import { RESET } from "jotai/utils";
+import React, { useState } from 'react';
+import { useAtom } from 'jotai';
+import { RESET } from 'jotai/utils';
 // FontAwesome
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 // util
-import { getRandomNumber } from "../util/random";
-import { fetchRecommendedData } from "../util/fetch";
+import { getRandomNumber } from '../util/random';
+import { fetchRecommendedData } from '../util/fetch';
 // components
-import ResultCard from "./ResultCard";
-import Roulette from "./roulette/Roulette";
+import ResultCard from './ResultCard';
+import Roulette from './roulette/Roulette';
 // 전역 state
-import { loadAddressAtom, currentLocationAtom } from "../store/LocationAtom";
+import { loadAddressAtom, currentLocationAtom } from '../store/LocationAtom';
 
 // 서버에서 받아온 데이터 타입
 export type PlaceData = {
@@ -35,7 +35,7 @@ export type PlaceData = {
 
 const Content = () => {
   // 메뉴의 카테고리입니다.(대분류)
-  const category = ["한식", "중식", "일식", "양식", "랜덤"];
+  const category = ['한식', '중식', '일식', '양식', '랜덤'];
   // 셀렉트한 메뉴의 index 번호입니다.
   const [selectedMenu, setSelectedMenu] = useState(0);
   // 랜덤한 데이터(서버데이터)
@@ -52,13 +52,13 @@ const Content = () => {
   async function getRecommendedData(selectCategory: string) {
     // selectCategory가 랜덤일 경우엔 random으로 category 골라주기, 아닐경우 select한 카테고리 할당
     const select =
-      selectCategory === "랜덤"
+      selectCategory === '랜덤'
         ? category[getRandomNumber(0, category.length - 2)]
         : selectCategory;
-    console.log("getRandommendedData!", select);
+    console.log('getRandommendedData!', select);
     try {
       if (currentLocation === null)
-        throw new Error("current loction not found");
+        throw new Error('current loction not found');
       //랜덤 음식 서버 통신 response
       const response = await fetchRecommendedData(
         select,
@@ -114,13 +114,14 @@ const Content = () => {
       <div className='flex justify-center items-center my-4'>
         <FontAwesomeIcon icon={faLocationDot} beat color='black' />
         <h1 className='ml-2 text-black font-bold text-xl dark:text-white'>
-          {loadAddress?.bname}
+          {loadAddress?.addressName}
         </h1>
       </div>
       <button
         className='btn btn-neutral btn-xl '
         onClick={initializationBtnClickHandler}
-        disabled={isBtnClick}>
+        disabled={isBtnClick}
+      >
         위치 초기화하기
       </button>
       <div className='flex w-80 justify-center items-center my-4'>
@@ -129,7 +130,8 @@ const Content = () => {
           name=''
           id='food'
           onChange={onSelectChangeHandler}
-          defaultValue={"0"}>
+          defaultValue={'0'}
+        >
           {category.map((item, index) => {
             return (
               <option value={index} key={index}>
@@ -141,7 +143,8 @@ const Content = () => {
         <button
           className='btn btn-primary btn-xl '
           onClick={onClickHandler}
-          disabled={isBtnClick}>
+          disabled={isBtnClick}
+        >
           돌리기!
         </button>
       </div>
@@ -149,7 +152,8 @@ const Content = () => {
         <button
           className='btn btn-primary btn-xl '
           onClick={showRouletteBtnClickHandler}
-          disabled={isBtnClick}>
+          disabled={isBtnClick}
+        >
           룰렛 돌리기!
         </button>
       </div>

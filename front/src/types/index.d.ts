@@ -7,6 +7,7 @@ declare global {
       close: () => void;
     };
     currentModal: {
+      showModal: () => void;
       close: () => void;
     };
   }
