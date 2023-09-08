@@ -2,29 +2,33 @@
  * @gogleset 카카오 주소 API를 이용한 주소 추출 모달 컴포넌트
  */
 
-import DaumPostCode from 'react-daum-postcode';
-import { useEffect } from 'react';
-import { useAtom } from 'jotai';
-import { loadAddressAtom, currentLocationAtom } from '../../store/LocationAtom';
-import { getXY } from '../../util/fetch';
+import DaumPostCode from "react-daum-postcode";
+import { useEffect } from "react";
+import { useAtom } from "jotai";
+import { loadAddressAtom, currentLocationAtom } from "../../store/LocationAtom";
+import { getXY } from "../../util/fetch";
 
 const KakaoModal = () => {
-  const [loadAddress, setLoadAddressAtom] = useAtom(loadAddressAtom);
+  const [loadAddress, setLoadAddress] = useAtom(loadAddressAtom);
   const [, setXyAtom] = useAtom(currentLocationAtom);
   const selectAddress = async (data: any) => {
-    if (!data) throw new Error('Address Not Found');
+    if (!data) throw new Error("Address Not Found");
     try {
       // 도로명주소 -> xy좌표로 바꿈
       const response = await getXY(data.address);
       console.log(43, data);
       const result = await response.json();
-      console.log(result.documents[0].address);
+      console.log(result.documents[0]);
       // 전역상태관리에 도로명 주소 정보 넣기
-      setLoadAddressAtom({
+      setLoadAddress({
         // 도로명 주소
-        address: result.documents[0].address,
-        // 동 이름
-        addressName: result.document[0].bname,
+        address: result.documents[0].road_address.address_name,
+        // 동 이름.road_address.address_name,
+        addressName:
+          // 3depth_name이 있다면 할당, 아니면 2depth_name 할당
+          result.documents[0].address.region_3depth_name !== ""
+            ? result.documents[0].address.region_3depth_name
+            : result.documents[0].address.region_2depth_name,
       });
       // 다시 주소를 좌표로 바꾼것을 전역상태관리에 넣기
       setXyAtom({
@@ -32,7 +36,7 @@ const KakaoModal = () => {
         y: result.documents[0].address.y,
       });
     } catch (error) {
-      throw new Error('Error');
+      throw error;
     }
   };
   useEffect(() => {
