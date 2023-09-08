@@ -1,0 +1,22 @@
+{
+  "background_color": "#bc00ff",
+  "description": "점심 메뉴 추천 앱",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "점메추",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "점메추",
+  "start_url": "/",
+  "theme_color": "#00ffdd",
+  "categories": [],
+  "screenshots": [],
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "type": "image/svg+xml"
+    }
+  ],
+  "shortcuts": [],
+  "id": "점메추"
+}
